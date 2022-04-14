@@ -18,7 +18,9 @@ class TestSinglyLinkedList {
     TestInfo testInfo;
     TestReporter testReporter;
 
-
+    /*
+    * Instantiation of test reporter objects if needed for reference later
+     */
     @BeforeEach
     void init(TestInfo testInfo, TestReporter testReporter) {
         this.testInfo = testInfo;
@@ -27,6 +29,8 @@ class TestSinglyLinkedList {
                 "Running " + testInfo.getDisplayName() +
                      " with tags " + testInfo.getTags()
                 );
+
+        // check a new SLL instance is instantiated before each test
         System.out.println(" creating new SinglyLinkedList ...");
         singlyLinkedList = new SinglyLinkedList();
     }
@@ -42,6 +46,8 @@ class TestSinglyLinkedList {
         @Test
         @DisplayName(" test empty node")
         void testNullPointersEmptyList() {
+
+            // given empty SLL then
             assertNull(singlyLinkedList.getHead());
             assertNull(singlyLinkedList.getTail());
             assertEquals(singlyLinkedList.getSize(), 0, " SLL size should be zero as empty");
@@ -59,8 +65,11 @@ class TestSinglyLinkedList {
         @Test
         @DisplayName("When adding to FRONT of an empty SinglyLinkedList")
         void testAddToFrontEmpty() {
+
+            // given
             singlyLinkedList.addToFront("www.ineos.no");
 
+            // then
             assertThrows(IllegalArgumentException.class, () -> singlyLinkedList.addToFront(null));
             assertEquals(singlyLinkedList.getSize(), 1);
             assertEquals(singlyLinkedList.getHead().getData(), "www.ineos.no");
@@ -72,9 +81,12 @@ class TestSinglyLinkedList {
         @Test
         @DisplayName("When adding to FRONT of a SinglyLinkedList with one or more nodes")
         void testAddToFrontOneOrMoreNodes() {
+
+            // given
             singlyLinkedList.addToFront("www.ineos.no");
             singlyLinkedList.addToFront("www.zollsoft.de");
 
+            // then
             assertEquals(singlyLinkedList.getSize(), 2);
             assertEquals(singlyLinkedList.getHead().getData(), "www.zollsoft.de");
             assertEquals(singlyLinkedList.getTail().getData(), "www.ineos.no");
@@ -94,8 +106,11 @@ class TestSinglyLinkedList {
         @Test
         @DisplayName("When adding to BACK of empty SLL")
         void testAddToBackEmpty() {
+
+            // given
             singlyLinkedList.addToBack("www.stackoverflow.com");
 
+            // then
             assertThrows(IllegalArgumentException.class, () -> singlyLinkedList.addToBack(null));
             assertEquals(singlyLinkedList.getSize(), 1);
             assertEquals(singlyLinkedList.getHead().getData(), "www.stackoverflow.com");
@@ -108,9 +123,12 @@ class TestSinglyLinkedList {
         @Test
         @DisplayName("When adding to BACK of a SinglyLinkedList with one or more nodes")
         void testAddToBackOneOrMoreNodes() {
+
+            // given
             singlyLinkedList.addToBack("www.stackoverflow.com");
             singlyLinkedList.addToBack("www.github.com");
 
+            // then
             assertEquals(singlyLinkedList.getSize(), 2);
             assertEquals(singlyLinkedList.getHead().getData(), "www.stackoverflow.com");
             assertEquals(singlyLinkedList.getTail().getData(), "www.github.com");
@@ -131,13 +149,14 @@ class TestSinglyLinkedList {
         @DisplayName("When adding BEFORE on empty SLL")
         void testAddBeforeEmpty() {
 
+            // given empty SLL then
             assertThrows(IllegalArgumentException.class, () ->
                     singlyLinkedList.addBefore("www.askubuntu.com", null));
 
             assertThrows(NoSuchElementException.class, () ->
                     singlyLinkedList.addBefore("www.askubuntu.com", "www.code.google.com"));
 
-        assertEquals(singlyLinkedList.getSize(), 0);
+            assertEquals(singlyLinkedList.getSize(), 0);
         }
 
         @Test
@@ -150,6 +169,7 @@ class TestSinglyLinkedList {
         @DisplayName("When adding BEFORE last node")
         void testAddBeforeLastNode() {
 
+            // given
             singlyLinkedList.addToBack("www.ibm.com");
             singlyLinkedList.addToBack("www.kdnuggets.com");
             singlyLinkedList.addToBack("www.cran.r-project.org");
@@ -158,10 +178,13 @@ class TestSinglyLinkedList {
             singlyLinkedList.addToBack("www.superuser.com");
             singlyLinkedList.addBefore("www.superuser.com", "www.intel.com");
 
+            // when
             SinglyLinkedListNode current = singlyLinkedList.getHead();
             while (current.getNext().getData() != "www.superuser.com") {
                 current = current.getNext();
             }
+
+            // then
             assertEquals(current.getData(), "www.intel.com");
             assertEquals(singlyLinkedList.getHead().getData(), "www.ibm.com");
             assertEquals(singlyLinkedList.getTail().getData(), "www.superuser.com");
@@ -181,6 +204,7 @@ class TestSinglyLinkedList {
         @DisplayName("When adding AFTER on empty SLL")
         void testAddAfterEmpty() {
 
+            // given empty SLL then
             assertThrows(IllegalArgumentException.class, () ->
                     singlyLinkedList.addBefore("www.datacamp.com", null));
 
@@ -246,17 +270,52 @@ class TestSinglyLinkedList {
         @DisplayName("When removingFromFront on empty list")
         void testRemoveFromFrontEmpty() {
 
+            // given empty SLL then
+            assertThrows(NoSuchElementException.class, () ->
+                    singlyLinkedList.removeFromFront());
+
+            // given empty SLL then
+            assertEquals(singlyLinkedList.getSize(), 0);
         }
 
         @Test
         @DisplayName("When removingFromFront on list with one node ")
         void testRemoveFromFrontSingleNode() {
 
+            // given
+            singlyLinkedList.addToFront("www.youtube.com/videos");
+            assertEquals(singlyLinkedList.getHead().getData(), "www.youtube.com/videos");
+            assertEquals(singlyLinkedList.getTail().getData(), "www.youtube.com/videos");
+
+            // when
+            singlyLinkedList.removeFromFront();
+
+            // then
+            assertNull(singlyLinkedList.getHead());
+            assertNull(singlyLinkedList.getTail());
         }
 
         @Test
         @DisplayName("When removingFromFront on list with multiple nodes")
         void testRemoveFromFrontMultipleNodes() {
+
+            // given
+            singlyLinkedList.addToFront("www.netflix.com");
+            singlyLinkedList.addToBack("www.peacock.com");
+            singlyLinkedList.addToFront("www.hulu.com");
+            singlyLinkedList.addToBack("www.disneyplus.com");
+
+            // when
+            singlyLinkedList.removeFromFront();
+
+            // then
+            assertEquals(singlyLinkedList.getHead().getData(), "www.netflix.com");
+            assertEquals(singlyLinkedList.getTail().getData(), "www.disneyplus.com");
+            assertNull(singlyLinkedList.getTail().getNext());
+            assertEquals(singlyLinkedList.getSize(), 3);
+
+
+
 
         }
     }
