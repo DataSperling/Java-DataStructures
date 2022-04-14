@@ -217,6 +217,8 @@ class TestSinglyLinkedList {
         @Test
         @DisplayName("When adding after MIDDLE node")
         void testAddAfterMiddleNode() {
+
+            // given
             singlyLinkedList.addToBack("www.spring.com");
             singlyLinkedList.addToBack("www.maven.org");
             singlyLinkedList.addToBack("www.apache.org");
@@ -224,11 +226,13 @@ class TestSinglyLinkedList {
             singlyLinkedList.addToBack("www.seaborn.com");
             singlyLinkedList.addAfter("www.apache.org", "www.dplyr.com");
 
+            // when
             SinglyLinkedListNode current = singlyLinkedList.getHead();
             while (current.getData() != "www.apache.org") {
                 current = current.getNext();
             }
 
+            // then
             assertEquals(current.getNext().getData(), "www.dplyr.com");
             assertEquals(singlyLinkedList.getHead().getData(), "www.spring.com");
             assertEquals(singlyLinkedList.getTail().getData(), "www.seaborn.com");
@@ -239,6 +243,7 @@ class TestSinglyLinkedList {
         @DisplayName("When adding AFTER last node")
         void testAddAfterLastNode() {
 
+            // given
             singlyLinkedList.addToBack("www.dataflair.org");
             singlyLinkedList.addToBack("www.datacampblog.com");
             singlyLinkedList.addToBack("www.datascience.com");
@@ -246,11 +251,13 @@ class TestSinglyLinkedList {
             singlyLinkedList.addAfter("www.databricks.com", "www.trifacta.com");
             System.out.println(singlyLinkedList.toString());
 
+            // when
             SinglyLinkedListNode current = singlyLinkedList.getHead();
             while (current.getData() != "www.databricks.com") {
                 current = current.getNext();
             }
 
+            // then
             assertEquals(current.getNext().getData(), "www.trifacta.com");
             assertEquals(singlyLinkedList.getHead().getData(), "www.dataflair.org");
             assertEquals(singlyLinkedList.getTail().getData(), "www.trifacta.com");
@@ -293,6 +300,7 @@ class TestSinglyLinkedList {
             // then
             assertNull(singlyLinkedList.getHead());
             assertNull(singlyLinkedList.getTail());
+            assertEquals(singlyLinkedList.getSize(), 0);
         }
 
         @Test
@@ -313,10 +321,6 @@ class TestSinglyLinkedList {
             assertEquals(singlyLinkedList.getTail().getData(), "www.disneyplus.com");
             assertNull(singlyLinkedList.getTail().getNext());
             assertEquals(singlyLinkedList.getSize(), 3);
-
-
-
-
         }
     }
 
@@ -332,12 +336,32 @@ class TestSinglyLinkedList {
         @DisplayName("When removingFromBack on empty list")
         void testRemoveFromBackEmpty() {
 
+            // given empty SLL then
+            assertThrows(NoSuchElementException.class, () ->
+                    singlyLinkedList.removeFromBack());
+
+            // given empty SLL then
+            assertEquals(singlyLinkedList.getSize(), 0);
+
         }
 
         @Test
         @DisplayName("When removingFromBack on list with one node")
         void testRemoveFromBackSingleNode() {
 
+            // given
+            singlyLinkedList.addToBack("www.kubernetes.io");
+            assertEquals(singlyLinkedList.getHead().getData(), "www.kubernetes.io");
+            assertEquals(singlyLinkedList.getTail().getData(), "www.kubernetes.io");
+            assertNull(singlyLinkedList.getHead().getNext());
+
+            // when
+            singlyLinkedList.removeFromBack();
+
+            // then
+            assertNull(singlyLinkedList.getHead());
+            assertNull(singlyLinkedList.getTail());
+            assertEquals(singlyLinkedList.getSize(), 0);
         }
 
         @Test
@@ -359,6 +383,30 @@ class TestSinglyLinkedList {
         @DisplayName("When removing data that's not present in SLL")
         void testRemoveDataNotPresent() {
 
+            // given
+            singlyLinkedList.addToBack("www.basf.com");
+            singlyLinkedList.addToFront("www.bayerag.com");
+            singlyLinkedList.addToBack("www.henkelag.com");
+            singlyLinkedList.addToFront("www.evonik.com");
+
+            // then
+            assertThrows(NoSuchElementException.class, () ->
+                    singlyLinkedList.removeData("www.siemens.de"));
+        }
+
+        @Test
+        @DisplayName("When removing null from SLL")
+        void testRemoveDataIsNull() {
+
+            // given
+            singlyLinkedList.addToBack("www.audi.ch");
+            singlyLinkedList.addToFront("www.bmw.mu");
+            singlyLinkedList.addToBack("www.vw.de");
+            singlyLinkedList.addToFront("www.volvo.se");
+
+            // then
+            assertThrows(IllegalArgumentException.class, () ->
+                    singlyLinkedList.removeData(null));
         }
 
         @Test
