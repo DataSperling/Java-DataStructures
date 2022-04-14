@@ -248,10 +248,11 @@ class TestSinglyLinkedList {
             singlyLinkedList.addToBack("www.datacampblog.com");
             singlyLinkedList.addToBack("www.datascience.com");
             singlyLinkedList.addToBack("www.databricks.com");
-            singlyLinkedList.addAfter("www.databricks.com", "www.trifacta.com");
-            System.out.println(singlyLinkedList.toString());
 
             // when
+            singlyLinkedList.addAfter("www.databricks.com", "www.trifacta.com");
+
+            // create sentinel to reference area of list under test
             SinglyLinkedListNode current = singlyLinkedList.getHead();
             while (current.getData() != "www.databricks.com") {
                 current = current.getNext();
@@ -413,11 +414,51 @@ class TestSinglyLinkedList {
         @DisplayName("When removing data that's in head node")
         void testRemoveDataHeadNode() {
 
+            // given
+            singlyLinkedList.addToBack("www.db.de");
+            singlyLinkedList.addToFront("www.vkk.de");
+            singlyLinkedList.addToBack("www.bvg.de");
+            singlyLinkedList.addToFront("www.mvv.de");
+            assertEquals(singlyLinkedList.getHead().getData(), "www.mvv.de");
+            assertEquals(singlyLinkedList.getTail().getData(), "www.bvg.de");
+            assertNull(singlyLinkedList.getTail().getNext());
+            assertEquals(singlyLinkedList.getSize(), 4);
+
+            // when
+            singlyLinkedList.removeData("www.mvv.de");
+
+            // then
+            assertEquals(singlyLinkedList.getHead().getData(), "www.vkk.de");
+            assertEquals(singlyLinkedList.getTail().getData(), "www.bvg.de");
+            assertEquals(singlyLinkedList.getSize(), 3);
         }
 
         @Test
         @DisplayName("When removing data that's in middle node")
         void testRemoveDataInMiddleNode() {
+
+            // given
+            singlyLinkedList.addToBack("www.edx.com");
+            singlyLinkedList.addToFront("www.coursera.com");
+            singlyLinkedList.addToBack("www.udacity.com");
+            singlyLinkedList.addToFront("www.udemy.com");
+            singlyLinkedList.addToBack("www.pluralsight.com");
+            singlyLinkedList.addToFront("www.infosec.com");
+
+            // when
+            singlyLinkedList.removeData("www.coursera.com");
+
+            // sentinel to reference list in area under test
+            SinglyLinkedListNode current = singlyLinkedList.getHead();
+            while (current.getData() != "www.udemy.com") {
+                current = current.getNext();
+            }
+
+            // then
+            assertEquals(current.getData(), "www.udemy.com");
+            assertEquals(current.getNext().getData(), "www.edx.com");
+            assertEquals(current.getNext().getNext().getData(), "www.udacity.com");
+
 
         }
 
@@ -425,6 +466,19 @@ class TestSinglyLinkedList {
         @DisplayName("When removing data from tail node")
         void testRemoveDataInTailNode() {
 
+            // given
+            singlyLinkedList.addToBack("www.deutschebank.de");
+            singlyLinkedList.addToFront("www.comerzbank.de");
+            singlyLinkedList.addToBack("www.ing.de");
+
+            // when
+            singlyLinkedList.removeData("www.ing.de");
+
+            // then
+            assertEquals(singlyLinkedList.getHead().getData(), "www.comerzbank.de");
+            assertEquals(singlyLinkedList.getHead().getNext().getData(), "www.deutschebank.de");
+            assertEquals(singlyLinkedList.getTail().getData(), "www.deutschebank.de");
+            assertNull(singlyLinkedList.getTail().getNext());
         }
     }
 
