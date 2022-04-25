@@ -84,7 +84,6 @@ public class TestArrayList {
 
             // when
             assertEquals(arrayList.getSize(), 1);
-
         }
 
         @Test
@@ -104,7 +103,7 @@ public class TestArrayList {
         @DisplayName("When adding to FRONT of FULL ArrayList requiring resize")
         void testAddToFrontFull() {
             // given
-            arrayList.addToFront("www.beginning.com");
+            arrayList.addToFront("www.endpoint.com");
             arrayList.addToFront("www.zune.com");
             arrayList.addToFront("www.apache.org");
             arrayList.addToFront("www.ibm.com");
@@ -123,7 +122,7 @@ public class TestArrayList {
             assertEquals(arrayList.getSize(), 12);
             assertEquals( arrayList.getBackingArray()[0].toString() ,"www.startpoint.com");
             assertEquals( arrayList.getBackingArray()[1].toString(), "www.azure.com");
-            assertEquals( arrayList.getBackingArray()[11].toString() ,"www.beginning.com");
+            assertEquals( arrayList.getBackingArray()[11].toString() ,"www.endpoint.com");
             assertNull(arrayList.getBackingArray()[12]);
         }
     }
