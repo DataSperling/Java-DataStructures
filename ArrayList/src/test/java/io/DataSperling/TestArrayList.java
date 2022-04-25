@@ -1,14 +1,10 @@
 package io.DataSperling;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -19,8 +15,11 @@ public class TestArrayList {
     TestInfo testInfo;
     TestReporter testReporter;
 
+    /*
+     * Instantiation of test reporter objects if needed for reference later
+     */
     @BeforeEach
-    void init(TestInfo testinfo, TestReporter testReporter) {
+    void init(TestInfo testInfo, TestReporter testReporter) {
         this.testInfo = testInfo;
         this.testReporter = testReporter;
         testReporter.publishEntry(
