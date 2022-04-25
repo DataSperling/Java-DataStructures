@@ -27,34 +27,49 @@ public class ArrayList<T> {
 
         if (data == null) {
             throw new IllegalArgumentException("Error, can't add null data to ArrayList");
-
         }
         if (size == 0) {
-            backingArray[1] = data;
+            backingArray[0] = data;
         } else if (size + 1 <= INITIAL_CAPACITY) {
-            System.out.println("add to front and shift to right");
             T[] tempArray = (T[]) new Object[INITIAL_CAPACITY];
             tempArray[0] = data;
-            for (int i=1; i<=size; i++) {
-                tempArray[i] = backingArray[i];
-                backingArray = tempArray;
+            for (int i=0; i<size; i++) {
+                tempArray[i+1] = backingArray[i];
             }
+            backingArray = tempArray;
         } else {
-            System.out.println("regrow array, add to front, copy data");
+            int currentCapacity = INITIAL_CAPACITY;
+            T[] tempArray;
+            while (currentCapacity <= size) {
+                currentCapacity = currentCapacity * 2;
+            }
+            tempArray = (T[]) new Object[currentCapacity];
+            tempArray[0] = data;
+            for (int i=0; i<size; i++) {
+                tempArray[i+1] = backingArray[i];
+            }
+            backingArray = tempArray;
         }
         size++;
     }
 
+    /*
+    * accessor method for backingArray.size
+    *
+    * @return: the integer size of tha backingArray
+     */
     public int getSize() {
         return size;
     }
 
+    /*
+    * accessor method for backingArray
+    * Object Array is cast to generic array
+    *
+    * @return: the generic object backingArray
+    */
     public T[] getBackingArray() {
         return backingArray;
     }
-
-
-
-
 
 }

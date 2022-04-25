@@ -42,33 +42,28 @@ public class TestArrayList {
 
         @Test
         @DisplayName("When ArrayList is empty")
-        void testEmptyArrayList() {
-
+        void testEmptyArrayListSize() {
             assertEquals(arrayList.getSize(), 0);
-
         }
 
         @Test
         @DisplayName("When adding null data to empty list")
         void testAddingNullToEmptyArrayList() {
-
             assertThrows(IllegalArgumentException.class, () ->
                     arrayList.addToFront(null));
-
         }
 
         @Test
         @DisplayName("When adding null data non empty list")
         void testAddingNullToArrayList() {
 
-            // when
+            // given
             arrayList.addToFront("www.google.com");
             arrayList.addToFront("www.cran.com");
 
-            //then
+            // when
             assertThrows(IllegalArgumentException.class, () ->
                     arrayList.addToFront(null));
-
         }
     }
 
@@ -84,10 +79,10 @@ public class TestArrayList {
         @DisplayName("When adding to FRONT of empty ArrayList")
         void testAddToFrontEmpty() {
 
-            // when
+            // given
             arrayList.addToFront("www.zollsoft.de");
 
-            // then
+            // when
             assertEquals(arrayList.getSize(), 1);
 
         }
@@ -96,12 +91,11 @@ public class TestArrayList {
         @DisplayName("When adding to FRONT of ArrayList with one or more nodes")
         void testAddToFrontOneOrMore() {
 
-            // when
+            // given
             arrayList.addToFront("www.google.com");
             arrayList.addToFront("www.ibm.com");
 
-
-            // then
+            // when
             assertEquals( arrayList.getBackingArray()[0].toString() ,"www.ibm.com");
             assertEquals( arrayList.getBackingArray()[1].toString(), "www.google.com");
         }
@@ -109,8 +103,28 @@ public class TestArrayList {
         @Test
         @DisplayName("When adding to FRONT of FULL ArrayList requiring resize")
         void testAddToFrontFull() {
+            // given
+            arrayList.addToFront("www.beginning.com");
+            arrayList.addToFront("www.zune.com");
+            arrayList.addToFront("www.apache.org");
+            arrayList.addToFront("www.ibm.com");
+            arrayList.addToFront("www.google.com");
+            arrayList.addToFront("www.ibm.com");
+            arrayList.addToFront("www.aws.com");
+            arrayList.addToFront("www.colab.com");
+            arrayList.addToFront("www.kaggle.com");
+            arrayList.addToFront("www.tds.com");
+            arrayList.addToFront("www.azure.com");
 
-            // require resize
+            // when
+            arrayList.addToFront("www.startpoint.com");
+
+            // then
+            assertEquals(arrayList.getSize(), 12);
+            assertEquals( arrayList.getBackingArray()[0].toString() ,"www.startpoint.com");
+            assertEquals( arrayList.getBackingArray()[1].toString(), "www.azure.com");
+            assertEquals( arrayList.getBackingArray()[11].toString() ,"www.beginning.com");
+            assertNull(arrayList.getBackingArray()[12]);
         }
     }
 
