@@ -238,7 +238,7 @@ public class TestArrayList {
         }
 
         @Test
-        @DisplayName("When removing from FRONT of ArrayList wiht multiple elements")
+        @DisplayName("When removing from FRONT of ArrayList with multiple elements")
         void testRemoveFromFrontMultiple() {
 
         }
