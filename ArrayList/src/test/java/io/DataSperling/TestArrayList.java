@@ -214,8 +214,36 @@ public class TestArrayList {
             assertEquals(arrayList.getBackingArray()[13].toString(), "www.zf.com");
             assertNull(arrayList.getBackingArray()[14]);
             assertNull(arrayList.getBackingArray()[15]);
+        }
+    }
+
+    /*
+     * inner class to test removeFromFront()
+     */
+    @Nested
+    @DisplayName("removeFromFront()")
+    @Tag("removeFromList")
+    class removeFromFront {
+
+        @Test
+        @DisplayName("When removing from FRONT of empty ArrayList")
+        void testRemoveFromFrontEmpty() {
 
         }
+
+        @Test
+        @DisplayName("When removing from FRONT of ArrayList with single element")
+        void testRemoveFromFrontSingleElement() {
+
+        }
+
+        @Test
+        @DisplayName("When removing from FRONT of ArrayList wiht multiple elements")
+        void testRemoveFromFrontMultiple() {
+
+        }
+
+
     }
 
 

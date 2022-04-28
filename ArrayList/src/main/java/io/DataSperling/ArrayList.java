@@ -42,11 +42,7 @@ public class ArrayList<T> {
             backingArray = tempArray;
         } else {
             int currentCapacity = INITIAL_CAPACITY;
-            T[] tempArray;
-            while (currentCapacity <= size) {
-                currentCapacity = currentCapacity * 2;
-            }
-            tempArray = (T[]) new Object[currentCapacity];
+            T[] tempArray = (T[]) new Object[calculateCurrentCapacity()];
             tempArray[0] = data;
             for (int i=0; i<size; i++) {
                 tempArray[i+1] = backingArray[i];
@@ -85,7 +81,7 @@ public class ArrayList<T> {
     *
     * @return: the integer size of the current backingArray
     */
-    public int calculateCurrentCapacity() {
+    private int calculateCurrentCapacity() {
         int currentCapacity = INITIAL_CAPACITY;
         while (currentCapacity <= size) {
             currentCapacity = currentCapacity * 2;
