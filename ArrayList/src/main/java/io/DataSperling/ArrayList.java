@@ -25,7 +25,7 @@ public class ArrayList<T> {
     *
     * @param data: the data to be added
     * @throws: java.lang.IllegalArgumentException if data is null
-     */
+    */
     public void addToFront(T data) {
 
         if (data == null) {
@@ -57,19 +57,39 @@ public class ArrayList<T> {
     }
 
     /*
+    * Adds data to back of ArrayList
+    *
+    * @param data: the data to be added
+    * @throws: java.lang.IllegalArgumentException if data is null
+    */
+    public void addToBack(T data) {
+        if (data == null) {
+            throw new IllegalArgumentException();
+        }
+        if (size + 1 <= backingArray.length) {
+            System.out.println("we have space");
+            backingArray[size] = data;
+        } else {
+            System.out.println("need to resize");
+        }
+        size++;
+    }
+
+    /*
     * accessor method for backingArray.size
     *
     * @return: the integer size of tha backingArray
-     */
+    */
     public int getSize() {
         return size;
     }
 
     /*
     * accessor method for backingArray
-    * Object Array is cast to generic array
+    * Object Array is cast to generic array: can cause class cast exception
     *
     * @return: the generic object backingArray
+    * @ClassCastException: array is cast to "generic[]" from Object[]
     */
     public T[] getBackingArray() {
         return backingArray;

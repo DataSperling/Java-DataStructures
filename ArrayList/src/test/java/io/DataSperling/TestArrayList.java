@@ -33,7 +33,7 @@ public class TestArrayList {
     }
 
     /*
-    * inner class to test addToFront()
+    * inner class to test ArrayList is instantiated with the correct parameters
     */
     @Nested
     @DisplayName("test empty list")
@@ -43,27 +43,12 @@ public class TestArrayList {
         @Test
         @DisplayName("When ArrayList is empty")
         void testEmptyArrayListSize() {
+
+            /*
+            * Check size and length of ArrayList are correct
+            */
             assertEquals(arrayList.getSize(), 0);
-        }
-
-        @Test
-        @DisplayName("When adding null data to empty list")
-        void testAddingNullToEmptyArrayList() {
-            assertThrows(IllegalArgumentException.class, () ->
-                    arrayList.addToFront(null));
-        }
-
-        @Test
-        @DisplayName("When adding null data non empty list")
-        void testAddingNullToArrayList() {
-
-            // given
-            arrayList.addToFront("www.google.com");
-            arrayList.addToFront("www.cran.com");
-
-            // when
-            assertThrows(IllegalArgumentException.class, () ->
-                    arrayList.addToFront(null));
+            assertEquals(arrayList.getBackingArray().length, 11) ;
         }
     }
 
@@ -76,31 +61,52 @@ public class TestArrayList {
     class testAddToFront {
 
         @Test
-        @DisplayName("When adding to FRONT of empty ArrayList")
+        @DisplayName("When adding null to FRONT of empty ArrayList")
+        void testAddNullToFrontEmpty() {
+            assertThrows(IllegalArgumentException.class, () ->
+                    arrayList.addToFront(null));
+        }
+
+        @Test
+        @DisplayName("When adding null to FRONT non empty list")
+        void testAddingNullTFrontNonEmpty() {
+
+            // given
+            arrayList.addToFront("www.google.com");
+            arrayList.addToFront("www.cran.com");
+
+            // then
+            assertThrows(IllegalArgumentException.class, () ->
+                    arrayList.addToFront(null));
+        }
+
+
+        @Test
+        @DisplayName("When adding data to FRONT of empty ArrayList")
         void testAddToFrontEmpty() {
 
             // given
             arrayList.addToFront("www.zollsoft.de");
 
-            // when
+            // then
             assertEquals(arrayList.getSize(), 1);
         }
 
         @Test
-        @DisplayName("When adding to FRONT of ArrayList with one or more nodes")
+        @DisplayName("When adding data to FRONT of ArrayList with one or more nodes")
         void testAddToFrontOneOrMore() {
 
             // given
             arrayList.addToFront("www.google.com");
             arrayList.addToFront("www.ibm.com");
 
-            // when
+            // then
             assertEquals( arrayList.getBackingArray()[0].toString() ,"www.ibm.com");
             assertEquals( arrayList.getBackingArray()[1].toString(), "www.google.com");
         }
 
         @Test
-        @DisplayName("When adding to FRONT of FULL ArrayList requiring resize")
+        @DisplayName("When adding data to FRONT of FULL ArrayList requiring resize")
         void testAddToFrontFull() {
             // given
             arrayList.addToFront("www.endpoint.com");
@@ -125,6 +131,59 @@ public class TestArrayList {
             assertEquals(arrayList.getBackingArray()[11].toString() ,"www.endpoint.com");
             assertEquals(arrayList.getBackingArray().length, 22);
             assertNull(arrayList.getBackingArray()[12]);
+        }
+    }
+
+    /*
+     * inner class to test addToBack()
+     */
+    @Nested
+    @DisplayName("addToBack()")
+    @Tag("addToList")
+    class testAddToBack {
+
+        @Test
+        @DisplayName("When adding null to BACK of empty ArrayList")
+        void testAddNullToBackEmpty() {
+            assertThrows(IllegalArgumentException.class, () ->
+                    arrayList.addToBack(null));
+        }
+
+        @Test
+        @DisplayName("When adding null to BACK non empty ArrayList")
+        void testAddingNullTBackNonEmpty() {
+
+            // given
+            arrayList.addToFront("www.google.com");
+            arrayList.addToBack("www.cran.com");
+
+            // then
+            assertThrows(IllegalArgumentException.class, () ->
+                    arrayList.addToBack(null));
+        }
+
+        @Test
+        @DisplayName("When adding to BACK of ArrayList does NOT require resize")
+        void testAddToBackOneOrMore() {
+
+            // given
+            arrayList.addToFront("www.sap.com");
+            arrayList.addToBack("www.lufthansa.com");
+            arrayList.addToFront("www.selek.com");
+            arrayList.addToBack("www.softserve.com");
+
+            // then
+            assertEquals(arrayList.getSize(), 4);
+            assertEquals(arrayList.getBackingArray()[0].toString(), "www.selek.com");
+            assertEquals(arrayList.getBackingArray()[1].toString(), "www.sap.com");
+            assertEquals(arrayList.getBackingArray()[2].toString(), "www.lufthansa.com");
+            assertEquals(arrayList.getBackingArray()[3].toString(), "www.softserve.com");
+        }
+
+        @Test
+        @DisplayName("When adding to BACK of a FULL ArrayList requires resize")
+        void testAddToBackFull() {
+
         }
     }
 
