@@ -184,6 +184,37 @@ public class TestArrayList {
         @DisplayName("When adding to BACK of a FULL ArrayList requires resize")
         void testAddToBackFull() {
 
+            // when
+            arrayList.addToFront("www.allianz.com");
+            arrayList.addToBack("www.daimler.com");
+            arrayList.addToFront("www.bmw.com");
+            arrayList.addToBack("www.volkswagen.com");
+            arrayList.addToFront("www.basf.com");
+            arrayList.addToBack("www.rwe.com");
+            arrayList.addToFront("www.bayer.com");
+            arrayList.addToBack("www.eon.com");
+            arrayList.addToFront("www.siemens.com");
+            arrayList.addToBack("www.db.com");
+            arrayList.addToFront("www.thyssenkrup.com");
+            arrayList.addToBack("www.deutschepost.com");
+            arrayList.addToBack("www.bosch.com");
+            arrayList.addToBack("www.zf.com");
+
+            // then
+            assertEquals(arrayList.getSize(), 14);
+            assertEquals(arrayList.getBackingArray().length, 22);
+            assertEquals(arrayList.getBackingArray()[0].toString(), "www.thyssenkrup.com");
+            assertEquals(arrayList.getBackingArray()[2].toString(), "www.bayer.com");
+            assertEquals(arrayList.getBackingArray()[4].toString(), "www.bmw.com");
+            assertEquals(arrayList.getBackingArray()[6].toString(), "www.daimler.com");
+            assertEquals(arrayList.getBackingArray()[8].toString(), "www.rwe.com");
+            assertEquals(arrayList.getBackingArray()[10].toString(), "www.db.com");
+            assertEquals(arrayList.getBackingArray()[11].toString(), "www.deutschepost.com");
+            assertEquals(arrayList.getBackingArray()[12].toString(), "www.bosch.com");
+            assertEquals(arrayList.getBackingArray()[13].toString(), "www.zf.com");
+            assertNull(arrayList.getBackingArray()[14]);
+            assertNull(arrayList.getBackingArray()[15]);
+
         }
     }
 

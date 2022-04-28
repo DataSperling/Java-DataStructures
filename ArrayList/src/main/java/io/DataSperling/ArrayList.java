@@ -71,8 +71,28 @@ public class ArrayList<T> {
             backingArray[size] = data;
         } else {
             System.out.println("need to resize");
+            T[] tempArray = (T[]) new Object[calculateCurrentCapacity()];
+            for (int i=0; i<size; i++) {
+                tempArray[i] = backingArray[i];
+            }
+            tempArray[size] = data;
+            backingArray = tempArray;
+
         }
         size++;
+    }
+
+    /*
+    * helper method to calculate currentCapacity dynamically
+    *
+    * @return: the integer size of the current backingArray
+    */
+    public int calculateCurrentCapacity() {
+        int currentCapacity = INITIAL_CAPACITY;
+        while (currentCapacity <= size) {
+            currentCapacity = currentCapacity * 2;
+        }
+        return currentCapacity;
     }
 
     /*
