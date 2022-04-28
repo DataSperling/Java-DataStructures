@@ -67,10 +67,8 @@ public class ArrayList<T> {
             throw new IllegalArgumentException();
         }
         if (size + 1 <= backingArray.length) {
-            System.out.println("we have space");
             backingArray[size] = data;
         } else {
-            System.out.println("need to resize");
             T[] tempArray = (T[]) new Object[calculateCurrentCapacity()];
             for (int i=0; i<size; i++) {
                 tempArray[i] = backingArray[i];
