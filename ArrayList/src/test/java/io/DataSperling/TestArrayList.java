@@ -120,9 +120,10 @@ public class TestArrayList {
 
             // then
             assertEquals(arrayList.getSize(), 12);
-            assertEquals( arrayList.getBackingArray()[0].toString() ,"www.startpoint.com");
-            assertEquals( arrayList.getBackingArray()[1].toString(), "www.azure.com");
-            assertEquals( arrayList.getBackingArray()[11].toString() ,"www.endpoint.com");
+            assertEquals(arrayList.getBackingArray()[0].toString() ,"www.startpoint.com");
+            assertEquals(arrayList.getBackingArray()[1].toString(), "www.azure.com");
+            assertEquals(arrayList.getBackingArray()[11].toString() ,"www.endpoint.com");
+            assertEquals(arrayList.getBackingArray().length, 22);
             assertNull(arrayList.getBackingArray()[12]);
         }
     }
