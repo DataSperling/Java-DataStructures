@@ -43,7 +43,6 @@ public class TestArrayList {
         @Test
         @DisplayName("When ArrayList is empty")
         void testEmptyArrayListSize() {
-
             /*
             * Check size and length of ArrayList are correct
             */
@@ -59,7 +58,6 @@ public class TestArrayList {
     @DisplayName("addToFront()")
     @Tag("addToList")
     class testAddToFront {
-
         @Test
         @DisplayName("When adding null to FRONT of empty ArrayList")
         void testAddNullToFrontEmpty() {
@@ -84,7 +82,6 @@ public class TestArrayList {
         @Test
         @DisplayName("When adding data to FRONT of empty ArrayList")
         void testAddToFrontEmpty() {
-
             // given
             arrayList.addToFront("www.zollsoft.de");
 
@@ -95,7 +92,6 @@ public class TestArrayList {
         @Test
         @DisplayName("When adding data to FRONT of ArrayList with one or more nodes")
         void testAddToFrontOneOrMore() {
-
             // given
             arrayList.addToFront("www.google.com");
             arrayList.addToFront("www.ibm.com");
@@ -141,7 +137,6 @@ public class TestArrayList {
     @DisplayName("addToBack()")
     @Tag("addToList")
     class testAddToBack {
-
         @Test
         @DisplayName("When adding null to BACK of empty ArrayList")
         void testAddNullToBackEmpty() {
@@ -165,7 +160,6 @@ public class TestArrayList {
         @Test
         @DisplayName("When adding to BACK of ArrayList does NOT require resize")
         void testAddToBackOneOrMore() {
-
             // given
             arrayList.addToFront("www.sap.com");
             arrayList.addToBack("www.lufthansa.com");
@@ -183,8 +177,7 @@ public class TestArrayList {
         @Test
         @DisplayName("When adding to BACK of a FULL ArrayList requires resize")
         void testAddToBackFull() {
-
-            // when
+            // given
             arrayList.addToFront("www.allianz.com");
             arrayList.addToBack("www.daimler.com");
             arrayList.addToFront("www.bmw.com");
@@ -196,6 +189,8 @@ public class TestArrayList {
             arrayList.addToFront("www.siemens.com");
             arrayList.addToBack("www.db.com");
             arrayList.addToFront("www.thyssenkrup.com");
+
+            // when
             arrayList.addToBack("www.deutschepost.com");
             arrayList.addToBack("www.bosch.com");
             arrayList.addToBack("www.zf.com");
@@ -224,26 +219,49 @@ public class TestArrayList {
     @DisplayName("removeFromFront()")
     @Tag("removeFromList")
     class removeFromFront {
-
         @Test
         @DisplayName("When removing from FRONT of empty ArrayList")
         void testRemoveFromFrontEmpty() {
-
+            assertThrows(NoSuchElementException.class, () ->
+                    arrayList.removeFromFront() );
         }
 
         @Test
         @DisplayName("When removing from FRONT of ArrayList with single element")
         void testRemoveFromFrontSingleElement() {
+            // given
+            arrayList.addToFront("www.zollsoft.com");
 
+            // when
+            arrayList.removeFromFront();
+
+            // then
+            assertNull(arrayList.getBackingArray()[0]);
+            assertNull(arrayList.getBackingArray()[1]);
+            assertNull(arrayList.getBackingArray()[2]);
+            assertEquals(arrayList.getSize(), 0);
         }
 
         @Test
         @DisplayName("When removing from FRONT of ArrayList with multiple elements")
         void testRemoveFromFrontMultiple() {
+            // given
+            arrayList.addToBack("www.alpina.com");
+            arrayList.addToFront("www.aralAG.com");
+            arrayList.addToBack("www.audi.com");
+            arrayList.addToFront("www.bechtle.com");
+            arrayList.addToBack("www.beyerdynamic.com");
+            arrayList.addToFront("www.biontech.com");
 
+            // when
+            arrayList.removeFromFront();
+
+            // then
+            assertEquals(arrayList.getBackingArray()[0], "www.bechtle.com");
+            assertEquals(arrayList.getBackingArray()[1], "www.aralAG.com");
+            assertEquals(arrayList.getBackingArray()[2], "www.alpina.com");
+            assertEquals(arrayList.getSize(), 5);
         }
-
-
     }
 
 

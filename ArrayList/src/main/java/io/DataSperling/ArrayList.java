@@ -81,7 +81,7 @@ public class ArrayList<T> {
     * Removes first element of array and returns its data
     *
     * @throws: java.util.NoSuchElementException if list is empty
-    * @return: the data that was at the front of the ArrayList
+    * @return: the data that was at index = 0 of ArrayList
     */
     public T removeFromFront() {
         if (size == 0) {
@@ -97,6 +97,7 @@ public class ArrayList<T> {
             }
             backingArray = tempArray;
         }
+        size--;
         return tempData;
     }
 
