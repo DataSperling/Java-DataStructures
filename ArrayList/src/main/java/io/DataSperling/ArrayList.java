@@ -2,6 +2,7 @@ package io.DataSperling;
 
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class ArrayList<T> {
 
@@ -77,9 +78,33 @@ public class ArrayList<T> {
     }
 
     /*
+    * Removes first element of array and returns its data
+    *
+    * @throws: java.util.NoSuchElementException if list is empty
+    * @return: the data that was at the front of the ArrayList
+    */
+    public T removeFromFront() {
+        if (size == 0) {
+            throw new NoSuchElementException("Error: List is empty");
+        }
+        T tempData = backingArray[0];
+        if (size == 1) {
+            backingArray[0] = null;
+        } else {
+            T[] tempArray = backingArray;
+            for (int i=0; i<size; i++) {
+                tempArray[i] = backingArray[i+1];
+            }
+            backingArray = tempArray;
+        }
+        return tempData;
+    }
+
+    /*
     * helper method to calculate currentCapacity dynamically
     *
-    * @return: the integer size of the current backingArray
+    * @param size: the integer size of the ArrayList (number occupied elements)
+    * @return: the integer size of the current backingArray (capacity until resize is required)
     */
     private int calculateCurrentCapacity() {
         int currentCapacity = INITIAL_CAPACITY;
