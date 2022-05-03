@@ -254,7 +254,7 @@ public class TestArrayList {
             arrayList.addToFront("www.biontech.com");
 
             // when
-            arrayList.removeFromFront();
+            assertEquals(arrayList.removeFromFront(), "www.biontech.com");
 
             // then
             assertEquals(arrayList.getBackingArray()[0], "www.bechtle.com");
@@ -264,5 +264,57 @@ public class TestArrayList {
         }
     }
 
+    /*
+     * inner class to test removeFromBack()
+     */
+    @Nested
+    @DisplayName("removeFromBack()")
+    @Tag("removeFromList")
+    class removeFromBack {
+        @Test
+        @DisplayName("When removing from BACK of empty ArrayList")
+        void testRemoveFromBackEmpty() {
+            assertThrows(NoSuchElementException.class, () ->
+                    arrayList.removeFromBack() );
+        }
 
+        @Test
+        @DisplayName("When removing from BACK of ArrayList with single element")
+        void testRemoveFromBackSingleElement() {
+            // given
+            arrayList.addToBack("www.ibm.de");
+
+            // when
+            arrayList.removeFromBack();
+
+            // then
+            assertNull(arrayList.getBackingArray()[0]);
+            assertNull(arrayList.getBackingArray()[1]);
+            assertNull(arrayList.getBackingArray()[2]);
+            assertEquals(arrayList.getSize(), 0);
+        }
+
+        @Test
+        @DisplayName("When removing from BACK ArrayList with multiple elements")
+        void testRemoveFromBackMultiple() {
+            // given
+            arrayList.addToFront("www.allianz.com");
+            arrayList.addToBack("www.daimler.com");
+            arrayList.addToFront("www.bmw.com");
+            arrayList.addToBack("www.volkswagen.com");
+            arrayList.addToFront("www.basf.com");
+            arrayList.addToBack("www.rwe.com");
+
+            // when
+            assertEquals(arrayList.removeFromBack(), "www.rwe.com");
+
+            // then
+            assertEquals(arrayList.getBackingArray()[0], "www.basf.com");
+            assertEquals(arrayList.getBackingArray()[1], "www.bmw.com");
+            assertEquals(arrayList.getBackingArray()[2], "www.allianz.com");
+            assertEquals(arrayList.getBackingArray()[3], "www.daimler.com");
+            assertEquals(arrayList.getBackingArray()[4], "www.volkswagen.com");
+            assertNull(arrayList.getBackingArray()[5]);
+        }
+    }
 }

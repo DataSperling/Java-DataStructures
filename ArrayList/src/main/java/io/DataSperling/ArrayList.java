@@ -78,7 +78,7 @@ public class ArrayList<T> {
     }
 
     /*
-    * Removes first element of array and returns its data
+    * Removes first element of array and returns its data to the user
     *
     * @throws: java.util.NoSuchElementException if list is empty
     * @return: the data that was at index = 0 of ArrayList
@@ -97,6 +97,22 @@ public class ArrayList<T> {
             }
             backingArray = tempArray;
         }
+        size--;
+        return tempData;
+    }
+
+    /*
+    * Removes last element of ArrayList and returns its data to the user
+    *
+    * @throws: java.util.NoSuchElementException if list is empty
+    * @return: the data that was at index = 0 of ArrayList
+    */
+    public T removeFromBack() {
+        if (size == 0) {
+            throw new NoSuchElementException("Error: List is empty");
+        }
+        T tempData = backingArray[size-1];
+        backingArray[size-1] = null;
         size--;
         return tempData;
     }
