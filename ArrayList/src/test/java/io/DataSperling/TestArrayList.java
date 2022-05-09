@@ -131,6 +131,38 @@ public class TestArrayList {
     }
 
     /*
+     * inner class to test addAtIndex()
+     */
+    @Nested
+    @DisplayName("addAtIndex()")
+    @Tag("addToList")
+    class testAddAtIndex {
+        @Test
+        @DisplayName("When adding null at index 0 of empty list")
+        void testAddNullAtIndexEmpty() {
+
+        }
+
+        @Test
+        @DisplayName("When adding data to middle of non empty list")
+        void testAddAtIndexEmptyNonEmpty() {
+
+        }
+
+        @Test
+        @DisplayName("When adding data to middle of FULL list")
+        void testAddAtIndexFull() {
+
+        }
+    }
+
+
+
+
+
+
+
+    /*
      * inner class to test addToBack()
      */
     @Nested

@@ -54,6 +54,14 @@ public class ArrayList<T> {
     }
 
     /*
+    * Adds data at specified index
+    *
+    * @param index: the index at which to add the data
+    * @throws: java.lang.IllegalArgumentException if data is null
+    */
+    public void addAtIndex(int index, T data) {}
+
+    /*
     * Adds data to back of ArrayList
     *
     * @param data: the data to be added
