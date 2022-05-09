@@ -140,18 +140,63 @@ public class TestArrayList {
         @Test
         @DisplayName("When adding null at index 0 of empty list")
         void testAddNullAtIndexEmpty() {
+            assertThrows(java.lang.IllegalArgumentException.class, ()->
+                    arrayList.addAtIndex(0, null));
 
         }
 
         @Test
         @DisplayName("When adding data to middle of non empty list")
         void testAddAtIndexEmptyNonEmpty() {
+            // given
+            arrayList.addToBack("www.google.com");
+            arrayList.addToBack("www.azure.com");
+            arrayList.addToBack("www.kdd.com");
+            arrayList.addToBack("www.tds.com");
+            arrayList.addToBack("www.ubuntu.com");
+            arrayList.addToBack("www.kvv.com");
+            arrayList.addToBack("www.zollsoft.com");
 
+            // when
+            arrayList.addAtIndex(3, "www.bing.com");
+
+            // then
+            assertEquals(arrayList.getBackingArray()[2], "www.kdd.com");
+            assertEquals(arrayList.getBackingArray()[3], "www.bing.com");
+            assertEquals(arrayList.getBackingArray()[4], "www.tds.com");
+            assertEquals(arrayList.getSize(), 8);
+            assertNull(arrayList.getBackingArray()[8]);
         }
 
         @Test
         @DisplayName("When adding data to middle of FULL list")
         void testAddAtIndexFull() {
+            // given
+            arrayList.addToBack("www.ibm.com");
+            arrayList.addToBack("www.edx.com");
+            arrayList.addToBack("www.coursera.com");
+            arrayList.addToBack("www.udemy.com");
+            arrayList.addToBack("www.google.com");
+            arrayList.addToBack("www.amazon.com");
+            arrayList.addToBack("www.tsmc.com");
+            arrayList.addToBack("www.nvidia.com");
+            arrayList.addToBack("www.sony.com");
+            arrayList.addToBack("www.tencent.com");
+            arrayList.addToBack("www.samsung.com");
+            arrayList.addToBack("www.broadcom.com");
+            arrayList.addToBack("www.cisco.com");
+            arrayList.addToBack("www.oracle.com");
+
+
+            // when
+            arrayList.addAtIndex(6, "www.intel.com");
+
+            // then
+            assertEquals(arrayList.getBackingArray()[5], "www.amazon.com");
+            assertEquals(arrayList.getBackingArray()[6], "www.intel.com");
+            assertEquals(arrayList.getBackingArray()[7], "www.tsmc.com");
+            assertEquals(arrayList.getSize(), 15);
+            assertNull(arrayList.getBackingArray()[15]);
 
         }
     }

@@ -59,7 +59,27 @@ public class ArrayList<T> {
     * @param index: the index at which to add the data
     * @throws: java.lang.IllegalArgumentException if data is null
     */
-    public void addAtIndex(int index, T data) {}
+    public void addAtIndex(int index, T data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Error: data can't be null");
+        }
+        if (size+1 <= calculateCurrentCapacity()) {
+            for (int i=size-1; i>=index; i--) {
+                backingArray[i+1] = backingArray[i];
+            }
+            backingArray[index] = data;
+        } else {
+            T[] tempArray = (T[]) new Object[calculateCurrentCapacity()];
+            for (int i=0; i<=size; i++) {
+                if (i <= index) {
+                    tempArray[i] = backingArray[i];
+                } else {
+                    tempArray[i+1] = backingArray[i];
+                }
+            }
+        }
+        size++;
+    }
 
     /*
     * Adds data to back of ArrayList
@@ -80,7 +100,6 @@ public class ArrayList<T> {
             }
             tempArray[size] = data;
             backingArray = tempArray;
-
         }
         size++;
     }
